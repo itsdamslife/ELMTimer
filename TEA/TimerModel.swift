@@ -20,6 +20,7 @@ class TimerModel {
     
     var value: String {
         didSet {
+            print("Timer now at : \(self.value)")
             NotificationCenter.default.post(name: TimerModel.timerValueDidChange, object: self, userInfo: [TimerModel.textKey: value])
         }
     }
@@ -66,12 +67,15 @@ class TimerModel {
         reset()
         value = "00:00:00"
 
+        print("Timer start")
         self.timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { [unowned self] timer in
+            print("Timer running")
             self.incrCountDownTime()
         })
     }
     
     func stopTimer() {
         self.timer?.invalidate()
+        print("Timer stopped")
     }
 }

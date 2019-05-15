@@ -35,7 +35,7 @@ struct TEAState {
     
     var view: [ElmView<Action>] {
         return [
-            ElmView.timerLabel("00:00:00", onChange: nil),
+            ElmView.timerLabel(text, onChange: nil),
             ElmView.startButton(title: "Start", onTap: Action.start),
             ElmView.stopButton(title: "Stop", onTap: Action.stop)
         ]
