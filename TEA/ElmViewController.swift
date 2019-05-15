@@ -8,9 +8,10 @@
 
 import UIKit
 
-struct TEAState {
+struct AppState {
     var text: String
     
+    // Command or Messgae
     enum Action {
         case start
         case stop
@@ -18,6 +19,7 @@ struct TEAState {
         case modelNotification(Notification)
     }
     
+    // Update function - triggers updating of model 
     mutating func update(_ action: Action) -> Command<Action>? {
         switch action {
         case .start:
@@ -33,6 +35,7 @@ struct TEAState {
         }
     }
     
+    // The Views - are tied to action ( command / message )
     var view: [ElmView<Action>] {
         return [
             ElmView.timerLabel(text, onChange: nil),
@@ -41,6 +44,7 @@ struct TEAState {
         ]
     }
     
+    // Helpers
     var subscriptions: [Subscription<Action>] {
         return [
             .notification(name: TimerModel.timerValueDidChange, Action.modelNotification)
@@ -50,16 +54,15 @@ struct TEAState {
 
 class ElmViewController: UIViewController {
 
-    @IBOutlet var rootView: UIStackView!
-    
     let model = TimerModel()
+    var driver: Driver<AppState, AppState.Action>? // ELM - Runtime
     
-    var driver: Driver<TEAState, TEAState.Action>?
+    @IBOutlet var rootView: UIStackView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        driver = Driver.init(TEAState(text: model.value), update: { state, action in
+        driver = Driver.init(AppState(text: model.value), update: { state, action in
             state.update(action)
         }, view: { $0.view }, subscriptions: { $0.subscriptions }, rootView: rootView, model: model)
     }

@@ -1,30 +1,37 @@
+
+/// Imported from objc.io and reused with modification as per this app's requirement
+
 import UIKit
 
+// --------------------------
+// App specifics UI Elements
+// --------------------------
 enum ElmView<Action> {
     case timerLabel(String, onChange: ((String) -> Action)?)
     case startButton(title: String, onTap: Action?)
     case stopButton(title: String, onTap: Action?)
 }
 
-class DisposeBag {
-    var disposables: [Any] = []
-    func append(_ value: Any) {
-        disposables.append(value)
+// ---------------------------------
+// App specifics actions decalred
+// ---------------------------------
+enum Command<Action> {
+    case startTimer
+    case stopTimer
+    
+    func execute(_ model: TimerModel, _ handle: @escaping (Action) -> ()) {
+        switch self {
+        case .startTimer:
+            model.startTimer()
+        case .stopTimer:
+            model.stopTimer()
+        }
     }
 }
 
-fileprivate final class TA: NSObject {
-    let execute: () -> ()
-    
-    init(_ action: @escaping () -> ()) {
-        self.execute = action
-    }
-    
-    @objc func action(_ sender: Any) {
-        self.execute()
-    }
-}
-
+// --------------------------------
+// Laying out the UI for the app
+// --------------------------------
 extension UIStackView {
     func updateSubviews<Action>(virtualViews: [ElmView<Action>], sendAction: @escaping (Action) -> (), disposeBag: DisposeBag) {
         let diff = subviews.count - virtualViews.count
@@ -66,11 +73,11 @@ extension UIStackView {
                 
                 startButton.removeTarget(nil, action: nil, for: .touchUpInside)
                 if let a = action {
-                    let ta = TA {
+                    let ta = TargetAction {
                         sendAction(a)
                     }
                     disposeBag.append(ta)
-                    startButton.addTarget(ta, action: #selector(TA.action), for: .touchUpInside)
+                    startButton.addTarget(ta, action: #selector(TargetAction.action), for: .touchUpInside)
                 }
             case let .stopButton(title: title, onTap: action):
                 let stopButton: UIButton
@@ -97,11 +104,11 @@ extension UIStackView {
                 
                 stopButton.removeTarget(nil, action: nil, for: .touchUpInside)
                 if let a = action {
-                    let ta = TA {
+                    let ta = TargetAction {
                         sendAction(a)
                     }
                     disposeBag.append(ta)
-                    stopButton.addTarget(ta, action: #selector(TA.action), for: .touchUpInside)
+                    stopButton.addTarget(ta, action: #selector(TargetAction.action), for: .touchUpInside)
                 }
             case let .timerLabel(title, onChange: onChange):
                 let timerLabel: UILabel
@@ -120,7 +127,7 @@ extension UIStackView {
                     timerLabel.text = title
                 }
                 if let o = onChange {
-                    let ta = TA { [unowned timerLabel] in
+                    let ta = TargetAction { [unowned timerLabel] in
                         sendAction(o(timerLabel.text ?? ""))
                     }
                     disposeBag.append(ta)
@@ -130,6 +137,10 @@ extension UIStackView {
         }
     }
 }
+
+// ---------------------------------------
+// Elm runtime implementation for Swift
+// ---------------------------------------
 
 class Driver<State, Action> {
     var state: State {
@@ -190,21 +201,9 @@ class Driver<State, Action> {
     
     func receive(_ action: Action) {
         if let command = update(&state, action) {
-            command.execute(model) { [unowned self] in self.receive($0) }
-        }
-    }
-}
-
-enum Command<Action> {
-    case startTimer
-    case stopTimer
-    
-    func execute(_ model: TimerModel, _ handle: @escaping (Action) -> ()) {
-        switch self {
-        case .startTimer:
-            model.startTimer()
-        case .stopTimer:
-            model.stopTimer()
+            command.execute(model) { [unowned self] in
+                self.receive($0)
+            }
         }
     }
 }
@@ -226,3 +225,24 @@ final class NotificationSubscription<Action> {
         }
     }
 }
+
+fileprivate final class TargetAction: NSObject {
+    let execute: () -> ()
+    
+    init(_ action: @escaping () -> ()) {
+        self.execute = action
+    }
+    
+    @objc func action(_ sender: Any) {
+        self.execute()
+    }
+}
+
+// Autorelease
+class DisposeBag {
+    var disposables: [Any] = []
+    func append(_ value: Any) {
+        disposables.append(value)
+    }
+}
+
