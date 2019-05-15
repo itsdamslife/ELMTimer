@@ -18,7 +18,7 @@ class TimerModel {
 
     private var timer: Timer?
     
-    private var value: String {
+    var value: String {
         didSet {
             NotificationCenter.default.post(name: TimerModel.timerValueDidChange, object: self, userInfo: [TimerModel.textKey: value])
         }

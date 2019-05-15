@@ -45,11 +45,19 @@ extension UIStackView {
             switch virtualView {
             case let .startButton(title: title, onTap: action):
                 let startButton: UIButton
-                if let b = view as? UIButton {
+                if let b = view as? UIButton { // TODO: Check if its stack view and first one is button
                     startButton = b
                 } else {
-                    startButton = UIButton(type: .roundedRect)
+                    startButton = UIButton(type: .system)
+                    startButton.backgroundColor = UIColor(named: "buttonColor")
+                    startButton.setTitle("Start", for: .normal)
+                    startButton.setTitleColor(UIColor(named: "systemGreen"), for: .normal)
+                    startButton.titleLabel?.font = UIFont.systemFont(ofSize: 35)
+                    startButton.layer.cornerRadius = 5.0
                     startButton.translatesAutoresizingMaskIntoConstraints = false
+                    startButton.heightAnchor.constraint(equalToConstant: self.bounds.height/4 - 5).isActive = true
+                    startButton.widthAnchor.constraint(equalToConstant: self.bounds.width).isActive = true
+                    
                     insertArrangedSubview(startButton, at: index)
                     removeArrangedSubview(view)
                     view.removeFromSuperview()
@@ -66,11 +74,21 @@ extension UIStackView {
                 }
             case let .stopButton(title: title, onTap: action):
                 let stopButton: UIButton
-                if let b = view as? UIButton {
+                if let sv = view as? UIStackView,
+                    let b = sv.subviews[1] as? UIButton { // TODO: Check if its stack view and first one is button
                     stopButton = b
                 } else {
-                    stopButton = UIButton(type: .roundedRect)
+                    
+                    stopButton = UIButton(type: .system)
+                    stopButton.backgroundColor = UIColor(named: "buttonColor")
+                    stopButton.setTitle("Stop", for: .normal)
+                    stopButton.setTitleColor(UIColor(named: "systemRed"), for: .normal)
+                    stopButton.titleLabel?.font = UIFont.systemFont(ofSize: 35)
+                    stopButton.layer.cornerRadius = 5.0
                     stopButton.translatesAutoresizingMaskIntoConstraints = false
+                    stopButton.heightAnchor.constraint(equalToConstant: self.bounds.height/4 - 5).isActive = true
+                    stopButton.widthAnchor.constraint(equalToConstant: self.bounds.width).isActive = true
+                    
                     insertArrangedSubview(stopButton, at: index)
                     removeArrangedSubview(view)
                     view.removeFromSuperview()
@@ -91,9 +109,10 @@ extension UIStackView {
                     timerLabel = b
                 } else {
                     timerLabel = UILabel()
+                    timerLabel.textAlignment = .center
                     timerLabel.translatesAutoresizingMaskIntoConstraints = false
-                    timerLabel.font = UIFont.systemFont(ofSize: 14)
-                    insertArrangedSubview(timerLabel, at: index)
+                    timerLabel.font = UIFont.systemFont(ofSize: 75)
+                    insertArrangedSubview(timerLabel, at: 0)
                     removeArrangedSubview(view)
                     view.removeFromSuperview()
                 }
