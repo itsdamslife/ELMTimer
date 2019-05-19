@@ -8,6 +8,10 @@
 
 import UIKit
 
+let model = TimerModel()
+let appState = AppState(text: model.value)
+// ^ For the sake of this demo
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 

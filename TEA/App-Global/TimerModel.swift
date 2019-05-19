@@ -8,6 +8,16 @@
 
 import Foundation
 
+// -----------------------------------
+// Treat this like an external entity
+// based on which value of our model
+// will be calculated.
+//
+// For example: Web socket
+// - Once a connection is opened
+// - you can transfer data
+// - and stop only when you disconnect
+// -----------------------------------
 class TimerModel {
     static let timerValueDidChange = Notification.Name("timerValueDidChange")
     static let textKey = "timer"
@@ -58,14 +68,12 @@ class TimerModel {
     }
     
     func startTimer() {
-        if self.timer != nil {
-            self.timer?.invalidate()
-            self.timer = nil
+        guard self.timer == nil else {
+            return
         }
         
         // reset first
         reset()
-        value = "00:00:00"
 
         print("Timer start")
         self.timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { [unowned self] timer in
@@ -76,6 +84,7 @@ class TimerModel {
     
     func stopTimer() {
         self.timer?.invalidate()
+        self.timer = nil
         print("Timer stopped")
     }
 }

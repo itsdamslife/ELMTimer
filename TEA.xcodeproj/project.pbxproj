@@ -13,6 +13,8 @@
 		955F4A722284A6DB005BFC9D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 955F4A712284A6DB005BFC9D /* Assets.xcassets */; };
 		955F4A752284A6DB005BFC9D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 955F4A732284A6DB005BFC9D /* LaunchScreen.storyboard */; };
 		955F4A802284A6DB005BFC9D /* TEATests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955F4A7F2284A6DB005BFC9D /* TEATests.swift */; };
+		9569C5AA2291AA61005BF722 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9569C5A92291AA61005BF722 /* AppState.swift */; };
+		9569C5AC2291ACBD005BF722 /* Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9569C5AB2291ACBD005BF722 /* Views.swift */; };
 		95704C48228AE89500E315F1 /* TimerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95704C46228AE35300E315F1 /* TimerModel.swift */; };
 		95704C49228AE89800E315F1 /* Elm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95704C44228AE2BC00E315F1 /* Elm.swift */; };
 		95704C77228BE49400E315F1 /* ElmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95704C76228BE49400E315F1 /* ElmViewController.swift */; };
@@ -39,6 +41,8 @@
 		955F4A7B2284A6DB005BFC9D /* TEATests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TEATests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		955F4A7F2284A6DB005BFC9D /* TEATests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TEATests.swift; sourceTree = "<group>"; };
 		955F4A812284A6DB005BFC9D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9569C5A92291AA61005BF722 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		9569C5AB2291ACBD005BF722 /* Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views.swift; sourceTree = "<group>"; };
 		95704C44228AE2BC00E315F1 /* Elm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Elm.swift; sourceTree = "<group>"; };
 		95704C46228AE35300E315F1 /* TimerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerModel.swift; sourceTree = "<group>"; };
 		95704C76228BE49400E315F1 /* ElmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElmViewController.swift; sourceTree = "<group>"; };
@@ -83,11 +87,11 @@
 		955F4A692284A6D9005BFC9D /* TEA */ = {
 			isa = PBXGroup;
 			children = (
+				9569C5AE2291B637005BF722 /* Framework */,
+				9569C5AD2291B62C005BF722 /* App-Global */,
 				955F4A6A2284A6D9005BFC9D /* AppDelegate.swift */,
-				955F4A6C2284A6D9005BFC9D /* ViewController.swift */,
 				95704C76228BE49400E315F1 /* ElmViewController.swift */,
-				95704C44228AE2BC00E315F1 /* Elm.swift */,
-				95704C46228AE35300E315F1 /* TimerModel.swift */,
+				955F4A6C2284A6D9005BFC9D /* ViewController.swift */,
 				955F4A6E2284A6D9005BFC9D /* Main.storyboard */,
 				955F4A712284A6DB005BFC9D /* Assets.xcassets */,
 				955F4A732284A6DB005BFC9D /* LaunchScreen.storyboard */,
@@ -103,6 +107,24 @@
 				955F4A812284A6DB005BFC9D /* Info.plist */,
 			);
 			path = TEATests;
+			sourceTree = "<group>";
+		};
+		9569C5AD2291B62C005BF722 /* App-Global */ = {
+			isa = PBXGroup;
+			children = (
+				9569C5A92291AA61005BF722 /* AppState.swift */,
+				95704C46228AE35300E315F1 /* TimerModel.swift */,
+				9569C5AB2291ACBD005BF722 /* Views.swift */,
+			);
+			path = "App-Global";
+			sourceTree = "<group>";
+		};
+		9569C5AE2291B637005BF722 /* Framework */ = {
+			isa = PBXGroup;
+			children = (
+				95704C44228AE2BC00E315F1 /* Elm.swift */,
+			);
+			path = Framework;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -209,6 +231,8 @@
 				95704C48228AE89500E315F1 /* TimerModel.swift in Sources */,
 				955F4A6D2284A6D9005BFC9D /* ViewController.swift in Sources */,
 				95704C77228BE49400E315F1 /* ElmViewController.swift in Sources */,
+				9569C5AC2291ACBD005BF722 /* Views.swift in Sources */,
+				9569C5AA2291AA61005BF722 /* AppState.swift in Sources */,
 				95704C49228AE89800E315F1 /* Elm.swift in Sources */,
 				955F4A6B2284A6D9005BFC9D /* AppDelegate.swift in Sources */,
 			);
