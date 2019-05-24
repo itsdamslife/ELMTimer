@@ -66,6 +66,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		954C712F229863B8007F44FF /* ElmViewCtr */ = {
+			isa = PBXGroup;
+			children = (
+				95704C76228BE49400E315F1 /* ElmViewController.swift */,
+			);
+			path = ElmViewCtr;
+			sourceTree = "<group>";
+		};
 		955F4A5E2284A6D9005BFC9D = {
 			isa = PBXGroup;
 			children = (
@@ -89,8 +97,8 @@
 			children = (
 				9569C5AE2291B637005BF722 /* Framework */,
 				9569C5AD2291B62C005BF722 /* App-Global */,
+				954C712F229863B8007F44FF /* ElmViewCtr */,
 				955F4A6A2284A6D9005BFC9D /* AppDelegate.swift */,
-				95704C76228BE49400E315F1 /* ElmViewController.swift */,
 				955F4A6C2284A6D9005BFC9D /* ViewController.swift */,
 				955F4A6E2284A6D9005BFC9D /* Main.storyboard */,
 				955F4A712284A6DB005BFC9D /* Assets.xcassets */,
